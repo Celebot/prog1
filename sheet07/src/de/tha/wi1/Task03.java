@@ -38,19 +38,7 @@ public class Task03 {
 		snowflake(x, y+2*newS, newS, depth-1);// unten links
 		snowflake(x+2*newS, y+2*newS, newS, depth-1);// unten rechts
 	}
-	public static void kreuzsnowflake(int x,int y, int s, int depth) {
-
-		if (depth==0||s<3) {
-			drawFilledRectangle(x, y, s, s, "blue");
-			return;
-
-		}
-		int newS = s/3;
-		snowflake(x+newS, y, newS, depth-1);//oben mitte
-		snowflake(x-newS, y, newS, depth-1);//linksmitte
-		snowflake(x+newS, y+newS, newS, depth-1);// mitte mitte
-		snowflake(x+newS, y, newS, depth-1);// rechts mitte
-		snowflake(x, y+newS, newS, depth-1);// unten mitte
+	
 		
-	}
+	
 }
