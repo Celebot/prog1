@@ -1,72 +1,64 @@
 package de.tha.wi1;
+
 import java.util.Random;
 
 public class Lottoziehung2 {
-	
-	public Lottoziehung2() {
-		private  int counter =0;
-		int[] gezogen =new int[7];
 
-		private boolean bereitsgezogen(int zahl) {
-			for (int i = 0; i <counter && i<6; i++) {
-				if (gezogen[i] == zahl) {
-					return true;
-				}		
-			}
-			return false;
-		}
+    private int[] gezogen = new int[6];
+    private int superzahl;
 
-		public static void main(String[] args) {
+    public Lottoziehung2() {
+        Random rand = new Random();
 
-			Lottoziehung2 run = new Lottoziehung2();
-			Lottoziehung2 run2 = new Lottoziehung2();
+        int counter = 0;
+        while (counter < 6) {
+            int n = rand.nextInt(49) + 1; // 1–49
 
+            if (!bereitsGezogen(n, counter)) {
+                gezogen[counter] = n;
+                counter++;
+            }
+        }
 
-			run.zieheZahlen();
-			run2.zieheZahlen();
-			
-		}
+        superzahl = rand.nextInt(10); // 0–9
+    }
 
-		private void zieheZahlen() {
-			for (int i = 0; i < 8; i++) {
-				System.out.print(this.nextNumber()+" ");
-				
-				counter++;
-			}
-			
-		}
+    // prüft nur intern
+    private boolean bereitsGezogen(int zahl, int bis) {
+        for (int i = 0; i < bis; i++) {
+            if (gezogen[i] == zahl) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-		public  int nextNumber() {
+    // Getter für die 6 Zahlen
+    public int[] getNumbers() {
+        return gezogen.clone();
+    }
 
-			int n=-1;
-			Random rand = new Random();
+    // Getter für Superzahl
+    public int getSuperNumber() {
+        return superzahl;
+    }
 
-			if (counter<6) {
-				do {
-					n = rand.nextInt(50);
-				}
-				while(bereitsgezogen(n));
-				gezogen[counter] = n;
-				if (n==0) {
-					n = n+1;
-				}
-			
-			}
-			if (counter==6) {
-				
-				n = rand.nextInt(10);
-				
-			}
-			
-			
+    // Test
+    public static void main(String[] args) {
 
+        Lottoziehung2 run1 = new Lottoziehung2();
+        Lottoziehung2 run2 = new Lottoziehung2();
 
+        System.out.println("Ziehung 1:");
+        for (int n : run1.getNumbers()) {
+            System.out.print(n + " ");
+        }
+        System.out.println(" | Superzahl: " + run1.getSuperNumber());
 
-
-			return n;
-		
-	
-		
-
-	}
+        System.out.println("\nZiehung 2:");
+        for (int n : run2.getNumbers()) {
+            System.out.print(n + " ");
+        }
+        System.out.println(" | Superzahl: " + run2.getSuperNumber());
+    }
 }
